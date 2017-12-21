@@ -1,0 +1,14 @@
+#!/bin/bash
+REPO="bristleio/tautulli"
+IMG_BUILD=$REPO":build"
+
+echo "Production build. Pushing latest and version to repo"
+IMG_LATEST=$REPO":armhf-latest"
+IMG_VERSION=$REPO":armhf-"$CACHE_TAG
+echo "tagging $IMG_LATEST"
+docker tag $IMG_BUILD $IMG_LATEST
+echo "Tagging $IMG_VERSION"
+docker tag $IMG_BUILD $IMG_VERSION
+echo "Executing Tag Push"
+docker push $IMG_LATEST
+docker push $IMG_VERSION
