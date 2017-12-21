@@ -18,9 +18,10 @@ RUN \
 
 # install pycryptodomex
  pip install --no-cache-dir -U \
-	pycryptodomex && \
+	pycryptodomex
 
 # check to see if tag exists
+RUN \
  remotecheck=$(git ls-remote --tags $GIT_URL $VERSION | wc -l) && \
 
 # install app
@@ -29,9 +30,7 @@ RUN \
     exit 1; \
   else \
     echo "Cloning $VERSION" && \
-    git clone --depth 1 $GIT_URL /app/plexpy && \
-    cd /app/plexpy && \
-    git checkout tags/$VERSION; \
+    git clone --branch $VERSION --depth 1 $GIT_URL /app/plexpy; \
  fi && \
 
 # cleanup
