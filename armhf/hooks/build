@@ -1,10 +1,8 @@
 #!/bin/bash
 
-echo "Building $CACHE_TAG"
-
 docker build \
 --rm \
 --tag bristleio/tautulli:build \
 --build-arg BUILD_DATE=$(date --utc +"%B-%d-%Y-%H:%M:%S-UTC") \
---build-arg VERSION=$CACHE_TAG \
+--build-arg VERSION=$SOURCE_BRANCH \
 .

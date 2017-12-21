@@ -4,7 +4,7 @@ IMG_BUILD=$REPO":build"
 
 echo "Production build. Pushing latest and version to repo"
 IMG_LATEST=$REPO":armhf-latest"
-IMG_VERSION=$REPO":armhf-"$CACHE_TAG
+IMG_VERSION=$REPO":armhf-"$SOURCE_BRANCH
 echo "tagging $IMG_LATEST"
 docker tag $IMG_BUILD $IMG_LATEST
 echo "Tagging $IMG_VERSION"
