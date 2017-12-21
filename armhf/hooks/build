@@ -1,6 +1,5 @@
 #!/bin/bash
 docker build \
---no-cache \
 --rm \
 --tag bristleio/tautulli:build \
 --build-arg BUILD_DATE=$(date --utc +"%B-%d-%Y-%H:%M:%S-UTC") \
