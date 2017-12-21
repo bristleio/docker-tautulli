@@ -1,4 +1,7 @@
 #!/bin/bash
+
+echo "Building $CACHE_TAG"
+
 docker build \
 --rm \
 --tag bristleio/tautulli:build \
