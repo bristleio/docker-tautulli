@@ -26,11 +26,12 @@ RUN \
 # install app
  if [ $remotecheck = 0 ]; then \
     echo "Bad tag name, $VERSION" && \
-    exit 1 \
+    exit 1; \
   else \
     echo "Cloning $VERSION" && \
-    git clone --depth 1 $GIT_URL /app/plexpy; \
-    cd /app/plexpy && git checkout tags/$VERSION \
+    git clone --depth 1 $GIT_URL /app/plexpy && \
+    cd /app/plexpy && \
+    git checkout tags/$VERSION; \
  fi && \
 
 # cleanup
