@@ -45,3 +45,5 @@ COPY root/ /
 # ports and volumes
 VOLUME /config /logs
 EXPOSE 8181
+
+CMD python /app/plexpy/PlexPy.py --datadir /config
