@@ -15,7 +15,8 @@ COPY qemu-arm-static /usr/bin/qemu-arm-static
 
 # install packages
 RUN \
- apk add --virtual=build-dependencies \
+ apt-get update && \
+ apt-get install -y \
   git && \
 # check to see if tag exists
  remotecheck=$(git ls-remote --tags $GIT_URL $VERSION | wc -l) && \
@@ -28,13 +29,12 @@ RUN \
     git clone --branch $VERSION --depth 1 $GIT_URL /app/plexpy; \
  fi && \
 # cleanup
- apk del --purge \
+ apt-get clean && \
 	build-dependencies && \
  rm -rf \
   /tmp/* \
 	/var/lib/apt/lists/* \
-	/var/tmp/* \
-	/root/.cache
+	/var/tmp/*
 
 # add local files
 COPY root/ /
