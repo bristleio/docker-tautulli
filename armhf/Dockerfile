@@ -1,4 +1,4 @@
-FROM resin/raspberrypi3-alpine-python:3.6-slim
+FROM resin/raspberrypi3-alpine-python:2.7-slim
 MAINTAINER loganavatar
 
 # set version label
