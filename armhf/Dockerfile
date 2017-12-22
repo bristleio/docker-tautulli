@@ -1,5 +1,9 @@
-FROM lsiobase/alpine.python.armhf:3.6
+FROM lsiobase/mono.armhf
 MAINTAINER loganavatar
+
+# environment settings
+ARG DEBIAN_FRONTEND="noninteractive"
+ENV XDG_CONFIG_HOME="/config/xdg"
 
 # set version label
 ARG BUILD_DATE
@@ -11,15 +15,8 @@ COPY qemu-arm-static /usr/bin/qemu-arm-static
 
 # install packages
 RUN \
- apk add --no-cache --virtual=build-dependencies \
-	g++ \
-	gcc \
-	make \
-        git \
-	python-dev && \
-# install pycryptodomex
- pip install --no-cache-dir -U \
-	pycryptodomex && \
+ apk add --virtual=build-dependencies \
+  git && \
 # check to see if tag exists
  remotecheck=$(git ls-remote --tags $GIT_URL $VERSION | wc -l) && \
 # install app
@@ -34,6 +31,9 @@ RUN \
  apk del --purge \
 	build-dependencies && \
  rm -rf \
+  /tmp/* \
+	/var/lib/apt/lists/* \
+	/var/tmp/* \
 	/root/.cache
 
 # add local files
