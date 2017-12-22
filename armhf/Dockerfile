@@ -1,5 +1,9 @@
-FROM resin/raspberrypi3-alpine-python:3.6-slim
+FROM lsiobase/mono.armhf
 MAINTAINER loganavatar
+
+# environment settings
+ARG DEBIAN_FRONTEND="noninteractive"
+ENV XDG_CONFIG_HOME="/config/xdg"
 
 # set version label
 ARG BUILD_DATE
@@ -7,23 +11,15 @@ ARG VERSION
 ARG GIT_URL='https://github.com/JonnyWong16/plexpy'
 LABEL build_version="bristle.io version:- ${VERSION} Build-date:- ${BUILD_DATE}"
 
+COPY qemu-arm-static /usr/bin/qemu-arm-static
+
 # install packages
 RUN \
- apk add --no-cache --virtual=build-dependencies \
-	g++ \
-	gcc \
-	make \
-        git \
-	python-dev && \
-
-# install pycryptodomex
- pip install --no-cache-dir -U \
-	pycryptodomex
-
+ apt-get update && \
+ apt-get install -y \
+  git && \
 # check to see if tag exists
-RUN \
  remotecheck=$(git ls-remote --tags $GIT_URL $VERSION | wc -l) && \
-
 # install app
  if [ $remotecheck = 0 ]; then \
     echo "Bad tag name, $VERSION" && \
@@ -32,12 +28,12 @@ RUN \
     echo "Cloning $VERSION" && \
     git clone --branch $VERSION --depth 1 $GIT_URL /app/plexpy; \
  fi && \
-
 # cleanup
- apk del --purge \
-	build-dependencies && \
+ apt-get clean && \
  rm -rf \
-	/root/.cache
+  /tmp/* \
+	/var/lib/apt/lists/* \
+	/var/tmp/*
 
 # add local files
 COPY root/ /
@@ -45,5 +41,3 @@ COPY root/ /
 # ports and volumes
 VOLUME /config /logs
 EXPOSE 8181
-
-CMD python /app/plexpy/PlexPy.py --datadir /config
