@@ -1,9 +1,6 @@
 FROM lsiobase/alpine.python.armhf:3.6
 MAINTAINER loganavatar
 
-# enable container init system
-ENV INITSYSTEM on
-
 # set version label
 ARG BUILD_DATE
 ARG VERSION
@@ -45,5 +42,3 @@ COPY root/ /
 # ports and volumes
 VOLUME /config /logs
 EXPOSE 8181
-
-#CMD python /app/plexpy/PlexPy.py --datadir /config
