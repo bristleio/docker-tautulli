@@ -30,7 +30,6 @@ RUN \
  fi && \
 # cleanup
  apt-get clean && \
-	build-dependencies && \
  rm -rf \
   /tmp/* \
 	/var/lib/apt/lists/* \
