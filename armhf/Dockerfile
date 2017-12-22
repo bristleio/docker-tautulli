@@ -15,15 +15,11 @@ RUN \
 	make \
         git \
 	python-dev && \
-
 # install pycryptodomex
  pip install --no-cache-dir -U \
-	pycryptodomex
-
+	pycryptodomex && \
 # check to see if tag exists
-RUN \
  remotecheck=$(git ls-remote --tags $GIT_URL $VERSION | wc -l) && \
-
 # install app
  if [ $remotecheck = 0 ]; then \
     echo "Bad tag name, $VERSION" && \
@@ -32,7 +28,6 @@ RUN \
     echo "Cloning $VERSION" && \
     git clone --branch $VERSION --depth 1 $GIT_URL /app/plexpy; \
  fi && \
-
 # cleanup
  apk del --purge \
 	build-dependencies && \
