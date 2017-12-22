@@ -1,11 +1,16 @@
-FROM resin/raspberrypi3-alpine-python:3.6-slim
+FROM lsiobase/alpine.python.armhf:3.6
 MAINTAINER loganavatar
+
+# enable container init system
+ENV INITSYSTEM on
 
 # set version label
 ARG BUILD_DATE
 ARG VERSION
 ARG GIT_URL='https://github.com/JonnyWong16/plexpy'
 LABEL build_version="bristle.io version:- ${VERSION} Build-date:- ${BUILD_DATE}"
+
+COPY qemu-arm-static /usr/bin/qemu-arm-static
 
 # install packages
 RUN \
@@ -41,4 +46,4 @@ COPY root/ /
 VOLUME /config /logs
 EXPOSE 8181
 
-CMD python /app/plexpy/PlexPy.py --datadir /config
+#CMD python /app/plexpy/PlexPy.py --datadir /config
