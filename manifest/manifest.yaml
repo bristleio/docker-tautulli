@@ -1,0 +1,7 @@
+image: bristleio/tautulli:latest
+manifests:
+  -
+    image: bristleio/tautulli:armhf-latest
+    platform:
+      architecture: arm
+      os: linux
