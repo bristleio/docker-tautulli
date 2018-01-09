@@ -7,4 +7,4 @@ curl -O -J -L https://github.com/estesp/manifest-tool/releases/download/v0.7.0/m
 chmod +x manifest-tool-linux-armv7
 
 # push the manifest
-manifest-tool-linux-armv7 push from-spec manifest.yaml
+./manifest-tool-linux-armv7 push from-spec manifest.yaml
