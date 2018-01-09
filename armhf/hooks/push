@@ -14,4 +14,5 @@ docker push $IMG_LATEST
 docker push $IMG_VERSION
 
 git clone --depth=1 https://github.com/bristleio/docker-tautulli.git manit
-manit/manifest/push-manifest.sh
+cd manit/manifest/
+./push-manifest.sh
